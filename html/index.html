@@ -1,0 +1,97 @@
+<!--
+Copyright 2024 Paul Guyot <pguyot@kallisys.net>
+SPDX-License-Identifier: Apache-2.0 OR LGPL-2.1-or-later
+-->
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AtomVM Elixir Language Tour</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+  </head>
+  <body>
+    <div class="columns">
+      <div class="column">
+        <section class="section">
+          <div class="container">
+            <h1 class="title">Elixir Language Tour</h1>
+            <p class="subtitle">
+              with Elixir running in your browser using <strong>AtomVM</strong>!
+            </p>
+          </div>
+        </section>
+        <section class="section">
+          <div class="container" id="lesson">
+          </div>
+        </section>
+      </div>
+     <div class="column">
+       <section class="section">
+         <div class="box">
+           <div class="control">
+              <textarea id="source" class="textarea has-fixed-size" rows="20">IO.puts("Hello world")</textarea>
+           </div>
+         </div>
+       </section>
+       <section class="section">
+         <div class="box">
+           <pre><code id="stdout"></code></pre>
+         </div>
+       </section>
+     </div>
+    </div>
+    <script>
+      var Module = {
+        arguments: [
+            // Our application
+            // Includes the start module (the first one with start/0)
+            // Also includes elixir_config.beam which was rewritten to avoid
+            // unnecessary dependencies, especially considering we don't start
+            // Elixir runtime
+            "/bin/ElixirLanguageTour.avm",
+
+            // Pristine elixir-lang beams that we need
+            "/bin/elixir/ebin/elixir_aliases.beam",
+            "/bin/elixir/ebin/elixir_dispatch.beam",
+            "/bin/elixir/ebin/elixir_env.beam",
+            "/bin/elixir/ebin/elixir_erl_pass.beam",
+            "/bin/elixir/ebin/elixir_erl_var.beam",
+            "/bin/elixir/ebin/elixir_erl.beam",
+            "/bin/elixir/ebin/elixir_errors.beam",
+            "/bin/elixir/ebin/elixir_expand.beam",
+            "/bin/elixir/ebin/elixir_interpolation.beam",
+            "/bin/elixir/ebin/elixir_locals.beam",
+            "/bin/elixir/ebin/elixir_parser.beam",
+            "/bin/elixir/ebin/elixir_rewrite.beam",
+            "/bin/elixir/ebin/elixir_tokenizer.beam",
+            "/bin/elixir/ebin/elixir_utils.beam",
+            "/bin/elixir/ebin/elixir.beam",
+            "/bin/elixir/ebin/Elixir.Code.beam",
+            "/bin/elixir/ebin/Elixir.Kernel.beam",
+            "/bin/elixir/ebin/Elixir.Module.ParallelChecker.beam",
+            "/bin/elixir/ebin/Elixir.Path.beam",
+            "/bin/elixir/ebin/Elixir.String.beam",
+            "/bin/elixir/ebin/Elixir.String.Tokenizer.beam",
+
+            // AtomVM runtime (includes some more Elixir modules)
+            "/bin/atomvmlib.avm",
+            
+            // Pristine OTP beams that we need (from stdlib)
+            "/bin/stdlib-6.0/ebin/erl_anno.beam",
+            "/bin/stdlib-6.0/ebin/erl_eval.beam",
+            "/bin/stdlib-6.0/ebin/erl_internal.beam",
+            "/bin/stdlib-6.0/ebin/erl_scan.beam",
+            "/bin/stdlib-6.0/ebin/eval_bits.beam",
+            "/bin/stdlib-6.0/ebin/ordsets.beam",
+        ],
+        print: function(val) {
+            const textNode = document.createTextNode(val + "\n");
+            document.getElementById("stdout").appendChild(textNode);
+        }
+      };
+    </script>
+    <script async src="/bin/AtomVM.js"></script>
+  </body>
+</html>
